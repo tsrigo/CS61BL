@@ -117,17 +117,19 @@ public class Model extends Observable {
         // TODO: Fill in this function.
         Board b = _board;
         b.setViewingPerspective(side);
-        for (int col = 0; col < b.size(); col ++ ) {
-            for (int ori = b.size() - 1; ori >= 0; ori -- ) {
-                for (int now = ori - 1; now >= 0; now -- ) {
+        for (int col = 0; col < b.size(); col ++ ) {            // deal column by column
+            for (int ori = b.size() - 1; ori >= 0; ori -- ) {   // fix a target called t_ori, where the coordinate is (col, ori)
+                for (int now = ori - 1; now >= 0; now -- ) {    // t_now is the tile that be moved.
                     Tile t_ori = b.tile(col, ori), t_now = b.tile(col, now);
-                    if (t_now == null) continue;
+                    if (t_now == null) continue;                // add this judgement to avoid "null" bug
+                    // important idea ! We move the t_now iff the target is null or its value equals now's.
                     if (t_ori == null || t_now.value() == t_ori.value()){
                         changed = true;
                         boolean flag = b.move(col, ori, t_now);
 
-                        if (!flag) ori ++ ;
-                        else _score += b.tile(col, ori).value();
+                        if (!flag) ori ++ ; // this tile still have chance to be merged, so we should use `ori ++` to offset the `ori -- `
+                        else _score += b.tile(col, ori).value(); // Apparently, we should modify the _score iff the tilt is a merge.
+
                         break;
                     }
                 }
@@ -135,7 +137,7 @@ public class Model extends Observable {
         }
 
         b.setViewingPerspective(Side.NORTH);
-//        if (b != _board) changed = true;
+//      if (b != _board) changed = true; // wrong method
 
         if (changed) {
             setChanged();
@@ -210,9 +212,9 @@ public class Model extends Observable {
                     return true;
                 }
                 else {
-                    for (int k = 0; k < 4; k ++ ){
+                    for (int k = 0; k < 4; k ++ ){          // Exhaust 4 different directions to find adjacent same tile.
                         int nex = i + dx[k], ney = j + dy[k];
-                        if (0 <= nex && nex < size && 0 <= ney && ney < size){
+                        if (0 <= nex && nex < size && 0 <= ney && ney < size){ // note that we should not cross the border.
                             Tile ne = b.tile(nex, ney);
                             if (ne!= null && t.value() == ne.value()){
                                 return true;
