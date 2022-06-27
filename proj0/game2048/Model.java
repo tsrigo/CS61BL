@@ -108,13 +108,32 @@ public class Model extends Observable {
      *    value, then the leading two tiles in the direction of motion merge,
      *    and the trailing tile does not.
      */
+
+    public void tilt_each(){}
     public boolean tilt(Side side) {
         boolean changed;
         changed = false;
 
         // TODO: Fill in this function.
+        Board b = _board;
+        b.setViewingPerspective(side);
+        for (int col = 0; col < b.size(); col ++ ) {
+            for (int ori = 0; ori < b.size(); ori ++) {
+                for (int now = ori + 1; now < size(); now ++) {
+                    Tile t_ori = b.tile(col, ori), t_now = b.tile(col, now);
+                    if (t_ori == null || t_now.value() == t_ori.value()){
+                        b.move(col, ori, t_now);
+                        _score += b.tile(col, ori).value();
+                        if (t_ori == null) ori --;
+                        break;
+                    }
+                }
+            }
+        }
 
-        checkGameOver();
+        b.setViewingPerspective(Side.NORTH);
+        if (b != _board) changed = true;
+
         if (changed) {
             setChanged();
         }
