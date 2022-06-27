@@ -5,7 +5,7 @@ import java.util.Observable;
 
 
 /** The state of a game of 2048.
- *  @author TODO: YOUR NAME HERE
+ *  @author : Tsrigo
  */
 public class Model extends Observable {
     /** Current contents of the board. */
@@ -15,7 +15,7 @@ public class Model extends Observable {
     /** Maximum score so far.  Updated when game ends. */
     private int _maxScore;
     /** True iff game is ended. */
-    private boolean _gameOver;
+    private boolean _gameOver = false;
 
     /* Coordinate System: column C, row R of the board (where row 0,
      * column 0 is the lower-left corner of the board) will correspond
@@ -29,6 +29,9 @@ public class Model extends Observable {
      *  and score 0. */
     public Model(int size) {
         // TODO: Fill in this constructor.
+        this._board = new Board(size);
+        this._score = 0;
+        this._maxScore = 0;
     }
 
     /** A new 2048 game where RAWVALUES contain the values of the tiles
