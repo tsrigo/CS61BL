@@ -118,13 +118,16 @@ public class Model extends Observable {
         Board b = _board;
         b.setViewingPerspective(side);
         for (int col = 0; col < b.size(); col ++ ) {
-            for (int ori = 0; ori < b.size(); ori ++) {
-                for (int now = ori + 1; now < size(); now ++) {
+            for (int ori = b.size() - 1; ori >= 0; ori -- ) {
+                for (int now = ori - 1; now >= 0; now -- ) {
                     Tile t_ori = b.tile(col, ori), t_now = b.tile(col, now);
+                    if (t_now == null) continue;
                     if (t_ori == null || t_now.value() == t_ori.value()){
-                        b.move(col, ori, t_now);
-                        _score += b.tile(col, ori).value();
-                        if (t_ori == null) ori --;
+                        changed = true;
+                        boolean flag = b.move(col, ori, t_now);
+
+                        if (!flag) ori ++ ;
+                        else _score += b.tile(col, ori).value();
                         break;
                     }
                 }
@@ -132,7 +135,7 @@ public class Model extends Observable {
         }
 
         b.setViewingPerspective(Side.NORTH);
-        if (b != _board) changed = true;
+//        if (b != _board) changed = true;
 
         if (changed) {
             setChanged();
