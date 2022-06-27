@@ -109,7 +109,24 @@ public class Model extends Observable {
      *    and the trailing tile does not.
      */
 
-    public void tilt_each(){}
+    public boolean checkmove(Board b, int col, int ori, int now){
+        Tile t_ori = b.tile(col, ori), t_now = b.tile(col, now);
+        if (t_ori == null)
+            return true;
+
+        if (t_now.value() == t_ori.value()){
+            if (ori - now == 1)
+                return true;
+            else {  // Adding part, we may allow 2 0 0 2, but not allow 2 8 2 0 ( press left )
+                for (int i = ori - 1; i > now; i -- ){
+                    if (b.tile(col, i) != null) return false;
+                }
+                return true;
+            }
+        }
+
+        return false;
+    }
     public boolean tilt(Side side) {
         boolean changed;
         changed = false;
@@ -119,15 +136,16 @@ public class Model extends Observable {
         b.setViewingPerspective(side);
         for (int col = 0; col < b.size(); col ++ ) {            // deal column by column
             for (int ori = b.size() - 1; ori >= 0; ori -- ) {   // fix a target called t_ori, where the coordinate is (col, ori)
+                boolean flag = false;
                 for (int now = ori - 1; now >= 0; now -- ) {    // t_now is the tile that be moved.
                     Tile t_ori = b.tile(col, ori), t_now = b.tile(col, now);
                     if (t_now == null) continue;                // add this judgement to avoid "null" bug
-                    // important idea ! We move the t_now iff the target is null or its value equals now's.
-                    if (t_ori == null || t_now.value() == t_ori.value()){
+                    // Most important part ! We move the t_now iff the target is null or its value equals now's and in the middle there is no other tile.
+                    if (checkmove(b, col, ori, now)){
                         changed = true;
-                        boolean flag = b.move(col, ori, t_now);
+                        boolean tep = b.move(col, ori, t_now);
 
-                        if (!flag) ori ++ ; // this tile still have chance to be merged, so we should use `ori ++` to offset the `ori -- `
+                        if (!tep) ori ++ ; // this tile still have chance to be merged, so we should use `ori ++` to offset the `ori -- `
                         else _score += b.tile(col, ori).value(); // Apparently, we should modify the _score iff the tilt is a merge.
 
                         break;
