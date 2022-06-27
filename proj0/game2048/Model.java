@@ -177,6 +177,29 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+        int[] dx = {0, 1, -1, 0};
+        int[] dy = {1, 0, 0, -1};
+
+        int size = b.size();
+        for (int i = 0; i < size; i ++ ){
+            for (int j = 0; j < size; j ++ ){
+                Tile t = b.tile(i, j);
+                if (t == null){
+                    return true;
+                }
+                else {
+                    for (int k = 0; k < 4; k ++ ){
+                        int nex = i + dx[k], ney = j + dy[k];
+                        if (0 <= nex && nex < size && 0 <= ney && ney < size){
+                            Tile ne = b.tile(nex, ney);
+                            if (ne!= null && t.value() == ne.value()){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return false;
     }
 
