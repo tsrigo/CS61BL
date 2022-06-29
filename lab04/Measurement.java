@@ -3,13 +3,14 @@
  * should be _well-formed_, that is, the number of inches should not be >= 12.
  */
 public class Measurement {
-
+    private int foot, inch;
     /**
      * Constructor: initialize this object to be a measurement of 0 feet, 0
      * inches
      */
     public Measurement() {
-
+        foot = 0;
+        inch = 0;
     }
 
     /**
@@ -17,7 +18,8 @@ public class Measurement {
      * the number of inches
      */
     public Measurement(int feet) {
-
+        foot = feet;
+        inch = 0;
     }
 
     /**
@@ -26,7 +28,9 @@ public class Measurement {
      * initialization
      */
     public Measurement(int feet, int inches) {
-
+        int tep = feet * 12 + inches;
+        foot = tep / 12;
+        inch = tep % 12;
     }
 
     /**
@@ -34,7 +38,7 @@ public class Measurement {
      * Measurement has 1 foot and 6 inches, this method should return 1.
      */
     public int getFeet() {
-        return 0; // provided to allow the file to compile
+        return this.foot; // provided to allow the file to compile
     }
 
     /**
@@ -42,7 +46,7 @@ public class Measurement {
      * Measurement has 1 foot and 6 inches, this method should return 6.
      */
     public int getInches() {
-        return 0; // provided to allow the file to compile
+        return this.inch; // provided to allow the file to compile
     }
 
     /**
@@ -52,7 +56,8 @@ public class Measurement {
      * @return a new Measurement containing the sum of this and m2.
      */
     public Measurement plus(Measurement m2) {
-        return new Measurement(); // provided to allow the file to compile
+        Measurement ans = new Measurement(this.foot + m2.foot, this.inch + m2.inch);
+        return ans; // provided to allow the file to compile
     }
 
     /**
@@ -63,7 +68,13 @@ public class Measurement {
      * @return a new Measurement containing the difference of this and m2.
      */
     public Measurement minus(Measurement m2) {
-        return new Measurement(); // provided to allow the file to compile
+        Measurement ans = new Measurement(0);
+        int tep1 = this.getFeet() * 12 + this.getInches();
+        int tep2 = m2.getFeet() * 12 + m2.getInches();
+
+        ans.foot = (tep1 - tep2) / 12;
+        ans.inch = (tep1 - tep2) % 12;
+        return ans; // provided to allow the file to compile
     }
 
     /**
@@ -78,7 +89,13 @@ public class Measurement {
      * @return a new Measurement containing this times multipleAmount
      */
     public Measurement multiple(int multipleAmount) {
-        return new Measurement(); // provided to allow the file to compile
+        Measurement ans = new Measurement(0);
+        int tep1 = this.getFeet() * 12 + this.getInches();
+        tep1 *= multipleAmount;
+
+        ans.foot = tep1 / 12;
+        ans.inch = tep1 % 12;
+        return ans; // provided to allow the file to compile
     }
 
     /**
@@ -92,7 +109,8 @@ public class Measurement {
      */
     @Override
     public String toString() {
-        return ""; // provided to allow the file to compile
+        Measurement tep = this.multiple(1);
+        return tep.foot + "\'" + tep.inch + "\"";
     }
 
 }
