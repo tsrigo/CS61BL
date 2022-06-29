@@ -16,9 +16,15 @@ public class AddingMachine {
         // TODO Add code anywhere below to complete AddingMachine
 		while (true) {
 			input = scanner.nextInt();
+			if (input > MAXIMUM_NUMBER_OF_INPUTS){
+				System.out.println("Please input number not bigger than " + MAXIMUM_NUMBER_OF_INPUTS);
+			}
 			if (input == 0) {
 				if (isPreviousZero) {
 					System.out.println("total " + total);
+					for (int i = 0; i < index; i ++ ){
+						System.out.println(listOfInputs[i]);
+					}
 					return;
 				} else {
 					System.out.println("subtotal " + subtotal);
@@ -30,8 +36,8 @@ public class AddingMachine {
 			subtotal += input;
 			if (input != 0) {
 				isPreviousZero = false;
+				listOfInputs[index ++ ] = input;
 			}
-
 		}
 	}
 
