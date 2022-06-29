@@ -8,6 +8,11 @@ public class DateConverter {
      *     java DateConverter 365
      *
      * should print 12/31
+     * 365 12/31
+     * 2 1/2
+     * 31 1/31
+     * 40 2/9
+     * 100 4/10
      */
     public static void main(String[] args) {
         int dayOfYear = 0;
@@ -22,6 +27,8 @@ public class DateConverter {
         daysInMonth = 31;
         while (dayOfYear > daysInMonth) {
             // TODO: Here is one place to put assignment statements.
+            dayOfYear -= daysInMonth;
+            month ++ ;
             if (month == 2) {
                 daysInMonth = 28;
             } else if (month == 4 || month == 6 || month == 9 || month == 11) {
