@@ -50,7 +50,22 @@ public class IntList {
      */
     public int get(int position) {
         //TODO: YOUR CODE HERE
-        return -1;
+        if (position < 0){
+            throw new IllegalArgumentException("IllegalArgumentException for negative indices");
+        }
+
+        IntList i = this;
+        int j = 0;
+        for (j = 0; i.next != null && j < position; i = i.next, j ++ ){
+        }
+
+        if (j < position){
+            throw new IllegalArgumentException("IllegalArgumentException");
+        }
+        else{
+            return i.item;
+        }
+
     }
 
     /**
@@ -61,7 +76,13 @@ public class IntList {
      */
     public String toString() {
         //TODO: YOUR CODE HERE
-        return null;
+        IntList i = this;
+        String str = "";
+        for (; i != null; i = i.next){
+            str += Integer.toString(i.item);
+            if (i.next != null) str += " ";
+        }
+        return str;
     }
 
     /**
@@ -84,8 +105,14 @@ public class IntList {
         IntList otherLst = (IntList) obj;
 
         //TODO: YOUR CODE HERE
-
-        return false;
+        // Warning: Here we can't use `str1 == str2` to identify whether str1 and str2 are the same or not.
+        // I assume the reason maybe is that they are both objects and i may not be that simple
+        String str1 = this.toString(), str2 = otherLst.toString();
+        if (str1.equals(str2)) {
+            System.out.println(str1 + " " + str2);
+            return true;
+        }
+        else return false;
     }
 
     /**
