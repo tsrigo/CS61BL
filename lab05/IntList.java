@@ -1,3 +1,8 @@
+import jh61b.junit.In;
+
+import static java.lang.Math.min;
+import static java.lang.Math.pow;
+
 /** A data structure to represent a Linked List of Integers.
  * Each IntList represents one node in the overall Linked List.
  *
@@ -104,12 +109,11 @@ public class IntList {
         }
         IntList otherLst = (IntList) obj;
 
-        //TODO: YOUR CODE HERE
         // Warning: Here we can't use `str1 == str2` to identify whether str1 and str2 are the same or not.
         // I assume the reason maybe is that they are both objects and i may not be that simple
         String str1 = this.toString(), str2 = otherLst.toString();
         if (str1.equals(str2)) {
-            System.out.println(str1 + " " + str2);
+//            System.out.println(str1 + " " + str2);
             return true;
         }
         else return false;
@@ -122,6 +126,9 @@ public class IntList {
      */
     public void add(int value) {
         //TODO: YOUR CODE HERE
+        IntList i = this;
+        while(i.next != null) i = i.next;
+        i.next = new IntList(value);
     }
 
     /**
@@ -131,7 +138,13 @@ public class IntList {
      */
     public int smallest() {
         //TODO: YOUR CODE HERE
-        return -1;
+        IntList i = this;
+        int ans = 0x3f3f3f3f;
+        while(i != null) {
+            ans = Math.min(ans, i.item);
+            i = i.next;
+        }
+        return ans;
     }
 
     /**
@@ -141,7 +154,13 @@ public class IntList {
      */
     public int squaredSum() {
         //TODO: YOUR CODE HERE
-        return -1;
+        IntList i = this;
+        int ans = 0;
+        while (i != null){
+            ans += i.item * i.item;
+            i = i.next;
+        }
+        return ans;
     }
 
     /**
@@ -199,7 +218,10 @@ public class IntList {
      */
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO: YOUR CODE HERE
-        return null;
+        IntList i = A, j = B;
+        while (i.next != null) i = i.next;
+        i.next = new IntList(j.item, j.next);
+        return A;
     }
 
     /**
@@ -212,6 +234,16 @@ public class IntList {
      */
      public static IntList catenate(IntList A, IntList B) {
         //TODO: YOUR CODE HERE
-        return null;
+        IntList Copy_A = IntListCopy(A);
+        IntList Copy_B = IntListCopy(B);
+        IntList ans = Copy_A;
+        while (Copy_A.next != null) Copy_A = Copy_A.next;
+        Copy_A.next = Copy_B;
+        return ans;
+     }
+
+     public static IntList IntListCopy(IntList L){
+         if (L == null) return null;
+         return new IntList(L.item, IntListCopy(L.next));
      }
 }
