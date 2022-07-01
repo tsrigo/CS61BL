@@ -46,6 +46,11 @@ public class IntList {
         return head;
     }
 
+    // use recursion to get the size of an Intlist
+    public int size(){
+        if(this.next == null) return 1;
+        else return this.next.size() + 1;
+    }
     /**
      * Returns [position]th item in this list. Throws IllegalArgumentException
      * if index out of bounds.
