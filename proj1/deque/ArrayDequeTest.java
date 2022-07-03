@@ -49,4 +49,45 @@ public class ArrayDequeTest {
         assertEquals(1, ad.removeLast().intValue());
         assertEquals(0, ad.size());
     }
+
+    @Test
+    public void testprintDeque(){
+        Deque<Integer> ad = new ArrayDeque<>();
+        ad.addFirst(1);
+        ad.addFirst(2);
+        ad.addFirst(3);
+        ad.printDeque();
+    }
+
+
+    @Test
+    public void testresize(){
+        Deque<Integer> ad = new ArrayDeque<>();
+        for (int i = 0; i < 50; i ++ ){
+            ad.addLast(i);
+        }
+        ad.printDeque();
+
+        for (int i = 0; i < 50; i ++ ){
+            ad.addFirst(i);
+        }
+        ad.printDeque();
+
+        Deque<Integer> ad2 = new ArrayDeque<>();
+        for (int i = 0; i < 50; i ++ ){
+            ad2.addFirst(i);
+        }
+        ad2.printDeque();
+    }
+
+    @Test
+    public void testaddFirstAndaddLast(){
+        Deque<Integer> ad = new ArrayDeque<>();
+        ad.addFirst(1);
+        ad.addLast(2);
+        assertEquals(2, ad.size());
+        assertEquals(1, ad.removeFirst().intValue());
+        assertEquals(2, ad.removeLast().intValue());
+        assertEquals(0, ad.size());
+    }
 }
