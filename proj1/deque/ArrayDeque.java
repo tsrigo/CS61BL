@@ -14,7 +14,7 @@ public class ArrayDeque<XXX> implements Deque<XXX> {
     final double ratio = 0.25;
     private XXX[] que;
     private int len, size, head, tail;
-    ArrayDeque() {
+    public ArrayDeque() {
         que = (XXX[]) new Object[Init_Size];
         size = 0;
         len = Init_Size;
