@@ -7,9 +7,11 @@ public class ArrayDeque<XXX> implements Deque<XXX> {
     1. size : the numbers of items
     2. head : the index of the first element; when a ArrayDeque is fulfilled, head = tail + 1
     3. tail : the index of the last element
+    4. len : the max number of elements that the current deque can contain;
     */
     final int Init_Size = 8;
     final int Init_Head = 3;
+    final double ratio = 0.25;
     private XXX[] que;
     private int len, size, head, tail;
     ArrayDeque() {
@@ -20,6 +22,9 @@ public class ArrayDeque<XXX> implements Deque<XXX> {
         tail = Init_Head - 1;
     }
 
+    public int get_len(){
+        return this.len;
+    }
     private void resize(){
         XXX[] new_que = (XXX[]) new Object[2 * len];
         System.arraycopy(que, 0, new_que, 0, tail + 1);
@@ -56,6 +61,19 @@ public class ArrayDeque<XXX> implements Deque<XXX> {
         }
         System.out.println();
     }
+
+    private void narrow(){
+        XXX[] new_que = (XXX[]) new Object[len / 2];
+
+        int index = head;
+        for (int i = 0; i < size; i ++ ){
+            new_que[i] = que[(head + i) % len];
+        }
+        que = new_que;
+        head = 0;
+        tail = size - 1;
+        len /= 2;
+    }
     @Override
     public XXX removeFirst(){
         if (size == 0) {
@@ -63,7 +81,10 @@ public class ArrayDeque<XXX> implements Deque<XXX> {
         }
         size -- ;
         XXX res = que[head];
+        que[head] = null;
         head = (head + 1) % len;
+
+        if ((double)size / len < ratio && len >= 64) narrow();
         return res;
     }
     @Override
@@ -73,7 +94,10 @@ public class ArrayDeque<XXX> implements Deque<XXX> {
         }
         size -- ;
         XXX res = que[tail];
+        que[tail] = null;
         tail = (tail - 1 + len) % len;
+
+        if ((double)size / len < ratio && len >= 64) narrow();
         return res;
     }
     @Override
