@@ -132,4 +132,19 @@ public class ArrayDequeTest {
         ad2.addLast(1);
         assertTrue(ad.equals(ad2));
     }
+
+    @Test
+    public void multipleParamsTest() {
+        Deque<String> ad = new ArrayDeque<>();
+        ad.addFirst("a");
+        ad.addFirst("b");
+        ad.addFirst("c");
+        assertEquals(3, ad.size());
+        assertEquals("c", ad.removeFirst());
+        assertEquals("b", ad.removeFirst());
+        assertEquals("a", ad.removeFirst());
+        assertEquals(0, ad.size());
+        assertEquals(null, ad.removeFirst());
+        assertEquals(null, ad.removeLast());
+    }
 }
