@@ -7,17 +7,18 @@ import static org.junit.Assert.*;
 /* Performs some basic array deque tests. */
 public class ArrayDequeTest {
 
-    /** You MUST use the variable below for all of your tests. If you test
+    /**
+     * You MUST use the variable below for all of your tests. If you test
      * using a local variable, and not this static variable below, the
      * autograder will not grade that test. If you would like to test
      * ArrayDeques with types other than Integer (and you should),
      * you can define a new local variable. However, the autograder will
-     * not grade that test. */
+     * not grade that test.
+     */
 
     //public static Deque<Integer> ad = new ArrayDeque<Integer>();
-
     @Test
-    public void testaddFirstAndRemoveFirst(){
+    public void testaddFirstAndRemoveFirst() {
         Deque<Integer> ad = new ArrayDeque<>();
         ad.addFirst(1);
         assertEquals(1, ad.size());
@@ -31,10 +32,10 @@ public class ArrayDequeTest {
         assertEquals(2, ad.removeFirst().intValue());
         assertEquals(1, ad.removeFirst().intValue());
         assertEquals(0, ad.size());
-    }   
+    }
 
     @Test
-    public void testaddLastAndRemoveLast(){
+    public void testaddLastAndRemoveLast() {
         Deque<Integer> ad = new ArrayDeque<>();
         ad.addLast(1);
         assertEquals(1, ad.size());
@@ -51,7 +52,7 @@ public class ArrayDequeTest {
     }
 
     @Test
-    public void testprintDeque(){
+    public void testprintDeque() {
         Deque<Integer> ad = new ArrayDeque<>();
         ad.addFirst(1);
         ad.addFirst(2);
@@ -61,27 +62,27 @@ public class ArrayDequeTest {
 
 
     @Test
-    public void testresize(){
+    public void testresize() {
         Deque<Integer> ad = new ArrayDeque<>();
-        for (int i = 0; i < 10; i ++ ){
+        for (int i = 0; i < 10; i++) {
             ad.addLast(i);
         }
         ad.printDeque();
 
-        for (int i = 0; i < 50; i ++ ){
+        for (int i = 0; i < 50; i++) {
             ad.addFirst(i);
         }
         ad.printDeque();
 
         Deque<Integer> ad2 = new ArrayDeque<>();
-        for (int i = 0; i < 50; i ++ ){
+        for (int i = 0; i < 50; i++) {
             ad2.addFirst(i);
         }
         ad2.printDeque();
     }
 
     @Test
-    public void testaddFirstAndaddLast(){
+    public void testaddFirstAndaddLast() {
         Deque<Integer> ad = new ArrayDeque<>();
         ad.addFirst(1);
         ad.addLast(2);
@@ -92,37 +93,37 @@ public class ArrayDequeTest {
     }
 
     @Test
-    public void testnarrow(){
+    public void testnarrow() {
         ArrayDeque<Integer> ad = new ArrayDeque<>();
-        for (int i = 0; i < 70; i ++ ){
+        for (int i = 0; i < 70; i++) {
             ad.addLast(i);
         }
         ad.printDeque();
-        for (int i = 0; i < 60; i ++ ){
+        for (int i = 0; i < 60; i++) {
             ad.removeFirst();
         }
-        assertEquals(32, ad.get_len());
+        assertEquals(32, ad.getLen());
         ad.printDeque();
     }
 
     @Test
-    public void testget(){
+    public void testget() {
         Deque<Integer> ad = new ArrayDeque<>();
-        for (int i = 0; i < 50; i ++ ){
+        for (int i = 0; i < 50; i++) {
             ad.addLast(i);
         }
         ad.printDeque();
-        for (int i = 0; i < 50; i ++ ){
+        for (int i = 0; i < 50; i++) {
             assertEquals(i, ad.get(i).intValue());
             System.out.print(ad.get(i) + " ");
         }
     }
 
     @Test
-    public void testequals(){
+    public void testequals() {
         Deque<Integer> ad = new ArrayDeque<>();
         Deque<Integer> ad2 = new ArrayDeque<>();
-        for (int i = 0; i < 10; i ++ ){
+        for (int i = 0; i < 10; i++) {
             ad.addLast(i);
             ad2.addLast(i);
         }

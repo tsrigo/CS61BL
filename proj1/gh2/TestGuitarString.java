@@ -14,8 +14,8 @@ public class TestGuitarString  {
 
     @Test
     public void testPluckTheAString() {
-        double CONCERT_A = 440.0;
-        GuitarString aString = new GuitarString(CONCERT_A);
+        double v = 440.0;
+        GuitarString aString = new GuitarString(v);
         aString.pluck();
         for (int i = 0; i < 50000; i += 1) {
             StdAudio.play(aString.sample());
@@ -78,7 +78,8 @@ public class TestGuitarString  {
         // Check that new sample is correct, using tolerance of 0.001.
         // See JUnit documentation for a description of how tolerances work
         // for assertEquals(double, double)
-        assertEquals("Wrong tic value. Try running the testTic method in TestGuitarString.java.", expected, s5, 0.001);
+        String ss = "Wrong tic value. Try running the testTic method in TestGuitarString.java.";
+        assertEquals(ss, expected, s5, 0.001);
     }
 }
 

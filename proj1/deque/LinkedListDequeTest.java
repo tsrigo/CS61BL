@@ -1,20 +1,25 @@
 package deque;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 
-/** Performs some basic linked list deque tests. */
+/**
+ * Performs some basic linked list deque tests.
+ */
 public class LinkedListDequeTest {
 
-    /** You MUST use the variable below for all of your tests. If you test
+    /**
+     * You MUST use the variable below for all of your tests. If you test
      * using a local variable, and not this static variable below, the
      * autograder will not grade that test. If you would like to test
      * LinkedListDeques with types other than Integer (and you should),
      * you can define a new local variable. However, the autograder will
-     * not grade that test. Please do not import java.util.Deque here!*/
+     * not grade that test. Please do not import java.util.Deque here!
+     */
 
-    public static Deque<Integer> lld = new LinkedListDeque<Integer>();
+    private static Deque<Integer> lld = new LinkedListDeque<Integer>();
 
     @Test
     /** Adds a few things to the list, checks that isEmpty() is correct.
@@ -23,8 +28,8 @@ public class LinkedListDequeTest {
      *
      * && is the "and" operation. */
     public void addIsEmptySizeTest() {
-		assertTrue("A newly initialized LLDeque should be empty", lld.isEmpty());
-		lld.addFirst(0);
+        assertTrue("A newly initialized LLDeque should be empty", lld.isEmpty());
+        lld.addFirst(0);
 
         assertFalse("lld1 should now contain 1 item", lld.isEmpty());
 
@@ -32,7 +37,9 @@ public class LinkedListDequeTest {
         assertTrue("A newly initialized LLDeque should be empty", lld.isEmpty());
     }
 
-    /** Adds an item, removes an item, and ensures that dll is empty afterwards. */
+    /**
+     * Adds an item, removes an item, and ensures that dll is empty afterwards.
+     */
     @Test
     public void addRemoveTest() {
         Deque<Integer> ad = new LinkedListDeque<>();
@@ -63,7 +70,10 @@ public class LinkedListDequeTest {
         assertEquals(1, ad.removeLast().intValue());
         assertEquals(0, ad.size());
     }
-    /** Make sure that removing from an empty LinkedListDeque does nothing */
+
+    /**
+     * Make sure that removing from an empty LinkedListDeque does nothing
+     */
     @Test
     public void removeEmptyTest() {
         Deque<Integer> ad = new LinkedListDeque<>();
@@ -73,7 +83,10 @@ public class LinkedListDequeTest {
         ad.removeLast();
         assertEquals(0, ad.size());
     }
-    /** Make sure your LinkedListDeque also works on non-Integer types */
+
+    /**
+     * Make sure your LinkedListDeque also works on non-Integer types
+     */
     @Test
     public void multipleParamsTest() {
         Deque<String> ad = new LinkedListDeque<>();
@@ -88,7 +101,10 @@ public class LinkedListDequeTest {
         assertEquals(null, ad.removeFirst());
         assertEquals(null, ad.removeLast());
     }
-    /** Make sure that removing from an empty LinkedListDeque returns null */
+
+    /**
+     * Make sure that removing from an empty LinkedListDeque returns null
+     */
     @Test
     public void emptyNullReturn() {
         Deque<Integer> ad = new LinkedListDeque<>();
@@ -96,12 +112,9 @@ public class LinkedListDequeTest {
         assertEquals(null, ad.removeFirst());
         assertEquals(null, ad.removeLast());
     }
-    /** TODO: Write tests to ensure that your implementation works for really large
-     * numbers of elements, and test any other methods you haven't yet tested!
-     */
 
     @Test
-    public void testprintDeque(){
+    public void testprintDeque() {
         Deque<Integer> ad = new LinkedListDeque<>();
         ad.addFirst(1);
         ad.addFirst(2);
@@ -110,7 +123,7 @@ public class LinkedListDequeTest {
     }
 
     @Test
-    public void testaddFirstAndaddLast(){
+    public void testaddFirstAndaddLast() {
         Deque<Integer> ad = new LinkedListDeque<>();
         ad.addFirst(1);
         ad.addLast(2);
@@ -121,23 +134,23 @@ public class LinkedListDequeTest {
     }
 
     @Test
-    public void testget(){
+    public void testget() {
         Deque<Integer> ad = new LinkedListDeque<>();
-        for (int i = 0; i < 50; i ++ ){
+        for (int i = 0; i < 50; i++) {
             ad.addLast(i);
         }
         ad.printDeque();
-        for (int i = 0; i < 50; i ++ ){
+        for (int i = 0; i < 50; i++) {
             assertEquals(i, ad.get(i).intValue());
             System.out.print(ad.get(i) + " ");
         }
     }
 
     @Test
-    public void testequals(){
+    public void testequals() {
         Deque<Integer> ad = new LinkedListDeque<>();
         Deque<Integer> ad2 = new LinkedListDeque<>();
-        for (int i = 0; i < 10; i ++ ){
+        for (int i = 0; i < 10; i++) {
             ad.addLast(i);
             ad2.addLast(i);
         }
