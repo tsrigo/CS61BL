@@ -52,14 +52,19 @@ public class ArrayDeque<XXX> implements Deque<XXX> {
     public int size(){
         return size;
     }
+
+    public String DequetoString() {
+        String ans = "";
+        for (int i = 0; i < size; i ++ ){
+            ans = ans + this.get(i) + " ";
+        }
+        return ans;
+    }
+
     @Override
     public void printDeque(){
-        int index = head;
-        for (int i = 0; i < size; i ++ ){
-            System.out.print(que[index] + " ");
-            index = (index + 1) % len;
-        }
-        System.out.println();
+        String ans = DequetoString();
+        System.out.println(ans);
     }
 
     private void narrow(){
@@ -102,11 +107,24 @@ public class ArrayDeque<XXX> implements Deque<XXX> {
     }
     @Override
     public XXX get(int index){
-        XXX res = null;
-        return res;
+        if (index > size){
+            throw new IllegalArgumentException("IllegalArgumentException !");
+        }
+        return que[(head + index) % len];
     }
     @Override
     public boolean equals(Object o){
-        return false;
+        if (o == null || !(o instanceof ArrayDeque<?>)){
+            return false;
+        }
+
+        ArrayDeque<XXX> otherobj = (ArrayDeque<XXX>) o;
+
+        if (otherobj.size != this.size) return false;
+
+        String s1 = this.DequetoString();
+        String s2 = otherobj.DequetoString();
+
+        return s1.equals(s2);
     }
 }

@@ -93,7 +93,7 @@ public class ArrayDequeTest {
 
     @Test
     public void testnarrow(){
-        Deque<Integer> ad = new ArrayDeque<>();
+        ArrayDeque<Integer> ad = new ArrayDeque<>();
         for (int i = 0; i < 70; i ++ ){
             ad.addLast(i);
         }
@@ -101,7 +101,35 @@ public class ArrayDequeTest {
         for (int i = 0; i < 60; i ++ ){
             ad.removeFirst();
         }
-        assertEquals(32, ((ArrayDeque<Integer>) ad).get_len());
+        assertEquals(32, ad.get_len());
         ad.printDeque();
+    }
+
+    @Test
+    public void testget(){
+        Deque<Integer> ad = new ArrayDeque<>();
+        for (int i = 0; i < 50; i ++ ){
+            ad.addLast(i);
+        }
+        ad.printDeque();
+        for (int i = 0; i < 50; i ++ ){
+            assertEquals(i, ad.get(i).intValue());
+            System.out.print(ad.get(i) + " ");
+        }
+    }
+
+    @Test
+    public void testequals(){
+        Deque<Integer> ad = new ArrayDeque<>();
+        Deque<Integer> ad2 = new ArrayDeque<>();
+        for (int i = 0; i < 10; i ++ ){
+            ad.addLast(i);
+            ad2.addLast(i);
+        }
+        assertTrue(ad.equals(ad2));
+        ad.addLast(1);
+        assertFalse(ad.equals(ad2));
+        ad2.addLast(1);
+        assertTrue(ad.equals(ad2));
     }
 }
