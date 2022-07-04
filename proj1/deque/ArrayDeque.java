@@ -82,7 +82,7 @@ public class ArrayDeque<XXX> implements Deque<XXX> {
     @Override
     public XXX removeFirst(){
         if (size == 0) {
-            throw new IllegalCallerException("IllegalCaller For NULL Deque !");
+            return null;
         }
         size -- ;
         XXX res = que[head];
@@ -95,7 +95,7 @@ public class ArrayDeque<XXX> implements Deque<XXX> {
     @Override
     public XXX removeLast(){
         if (size == 0) {
-            throw new IllegalCallerException("IllegalCaller For NULL Deque !");
+            return null;
         }
         size -- ;
         XXX res = que[tail];
@@ -113,8 +113,8 @@ public class ArrayDeque<XXX> implements Deque<XXX> {
         return que[(head + index) % len];
     }
     @Override
-    public boolean equals(Object o){
-        if (o == null || !(o instanceof ArrayDeque<?>)){
+    public boolean equals(Object o) {
+        if (o == null || !(o instanceof ArrayDeque<?>)) {
             return false;
         }
 
@@ -122,9 +122,11 @@ public class ArrayDeque<XXX> implements Deque<XXX> {
 
         if (otherobj.size != this.size) return false;
 
-        String s1 = this.DequetoString();
-        String s2 = otherobj.DequetoString();
-
-        return s1.equals(s2);
+        for (int i = 0; i < otherobj.size(); i++) {
+            if (!this.get(i).equals(otherobj.get(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }
