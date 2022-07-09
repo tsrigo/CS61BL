@@ -1,6 +1,9 @@
 package capers;
 
+import jdk.jshell.execution.Util;
+
 import java.io.File;
+import java.util.Arrays;
 
 /** Canine Capers: A Gitlet Prelude.
  * @author Sean Dooher
@@ -10,7 +13,7 @@ public class Main {
     static final File CWD = new File(".");
 
     /** Main metadata folder. */
-    static final File CAPERS_FOLDER = null; // FIXME
+    static final File CAPERS_FOLDER = new File(".capers"); // FIXME
 
     /**
      * Runs one of three commands:
@@ -49,7 +52,12 @@ public class Main {
             case "story":
                 writeStory(args);
                 break;
-            // FIXME
+            case "dog":
+                makeDog(args);
+                break;
+            case "birthday":
+                celebrateBirthday(args);
+                break;
             default:
                 exitWithError(String.format("Unknown command: %s", args[0]));
         }
@@ -68,6 +76,9 @@ public class Main {
      */
     public static void setupPersistence() {
         // FIXME
+        File dogs = new File(".capers/dogs");
+        CAPERS_FOLDER.mkdir();
+        dogs.mkdir();
     }
 
     /**
@@ -78,6 +89,27 @@ public class Main {
     public static void writeStory(String[] args) {
         validateNumArgs("story", args, 2);
         // FIXME
+        File f = new File(".capers/story");
+        String ori = Utils.readContentsAsString(f);
+        Utils.writeContents(f, ori + args[1] + '\n');
+        System.out.println(Utils.readContentsAsString(f));
+    }
+
+
+
+    public static int string2num(String str){
+        int ans = 0;
+        for(int k = 0; k < str.length(); k ++ ){
+            char i = str.charAt(k);
+            if ('0' < i && i < '9'){
+                ans *= 10;
+                ans += i - '0';
+            }
+            else{
+                return -1;
+            }
+        }
+        return ans;
     }
 
     /**
@@ -87,8 +119,16 @@ public class Main {
      * If the user inputs an invalid age, call exitWithError()
      * @param args Array in format: {'story', name, breed, age}
      */
+
     public static void makeDog(String[] args) {
         validateNumArgs("dog", args, 4);
+        int num = string2num(args[3]);
+        if (num < 0){
+            exitWithError("Invalid age input");
+        }
+        Dog t = new Dog(args[1], args[2], num);
+        t.saveDog();
+        System.out.println(t.toString());
         // FIXME
     }
 
@@ -102,6 +142,10 @@ public class Main {
     public static void celebrateBirthday(String[] args) {
         validateNumArgs("birthday", args, 2);
         // FIXME
+        File f = new File("./capers/dogs/" + args[1]);
+        Dog dog = Dog.fromFile(args[1]);
+        dog.haveBirthday();
+        dog.saveDog();
     }
 
     /**

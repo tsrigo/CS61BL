@@ -72,7 +72,7 @@ class Utils {
                                                  Class<T> expectedClass) {
         try {
             ObjectInputStream in =
-                new ObjectInputStream(new FileInputStream(file));
+                    new ObjectInputStream(new FileInputStream(file));
             T result = expectedClass.cast(in.readObject());
             in.close();
             return result;
