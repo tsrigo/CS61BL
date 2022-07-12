@@ -15,4 +15,21 @@ public class AListTest {
         }
         assertEquals(6, count);
     }
+
+    @Test
+    public void testmultipleIterator() {
+        AList<Integer> a = new AList<>();
+        a.addLast(1);
+        a.addLast(2);
+        a.addLast(3);
+        int count = 0;
+        for (Integer i : a) {
+            count += i;
+        }
+        assertEquals(6, count);
+        for (Integer i : a) {
+            count += i;
+        }
+        assertEquals(12, count);
+    }
 }
