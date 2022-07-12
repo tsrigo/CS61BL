@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Objects;
 
-public class User {
+public class User<T> implements Comparable<T>{
 
     private static int nextId = 1;
 
@@ -88,4 +88,19 @@ public class User {
             System.out.println(user);
         }
     }
+
+    @Override
+    public int compareTo(T o) {
+        if (!(o instanceof User)){
+            throw new IllegalArgumentException("IllegalArgumentException");
+        }
+        if (this.id != ((User<?>) o).id){
+            return this.id - ((User<?>)o).id;
+        }
+        else{
+            return  this.name.compareTo(((User<?>) o).name);
+        }
+    }
+
+
 }
