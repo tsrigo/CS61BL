@@ -13,14 +13,39 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
     /* Returns true if the BST contains the given KEY. */
     public boolean contains(T key) {
         // TODO: YOUR CODE HERE
-        return false;
+        if (key == null) throw new IllegalArgumentException("argument to contains() is null");
+        return containsHelper(root, key);
     }
 
+    public boolean containsHelper(TreeNode x, T key){
+        if (x == null) return false;
+        if (x.item == key) return true;
+
+        int cmp = x.item.compareTo(key);
+        if (cmp > 0){
+            return containsHelper(x.left, key);
+        }
+        else{
+            return containsHelper(x.right, key);
+        }
+    }
     /* Adds a node for KEY iff KEY isn't in the BST already. */
     public void add(T key) {
         // TODO: YOUR CODE HERE
+        if (key == null) throw new IllegalArgumentException("calls put() with a null key");
+        root = addHelper(root, key);
     }
 
+    public TreeNode addHelper(TreeNode x, T key){
+        if (x == null){
+            return new TreeNode(key);
+        }
+        int cmp = x.item.compareTo(key);
+        if (cmp == 0) throw new IllegalArgumentException("This key is already existed!");
+        else if (cmp > 0) x.left = addHelper(x.left, key);
+        else x.right = addHelper(x.right, key);
+        return x;
+    }
     /* Deletes a node from the BST. 
      * Even though you do not have to implement delete, you 
      * should read through and understand the basic steps.
