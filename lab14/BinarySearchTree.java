@@ -22,12 +22,8 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
         if (x.item == key) return true;
 
         int cmp = x.item.compareTo(key);
-        if (cmp > 0){
-            return containsHelper(x.left, key);
-        }
-        else{
-            return containsHelper(x.right, key);
-        }
+        if (cmp > 0) return containsHelper(x.left, key);
+        else return containsHelper(x.right, key);
     }
     /* Adds a node for KEY iff KEY isn't in the BST already. */
     public void add(T key) {
