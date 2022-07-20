@@ -12,6 +12,10 @@ public class BinaryTreeTest {
         x.add("E");
         x.add("B");
         x.add("D");
+
+        assertTrue(x.contains("B"));
+        assertFalse(x.contains("hhh"));
+
         final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream oldOut = System.out;
         System.setOut(new PrintStream(outContent));
@@ -30,6 +34,10 @@ public class BinaryTreeTest {
         x.add(5);
         x.add(3);
         x.add(6);
+
+        assertTrue(x.contains(9));
+        assertFalse(x.contains(100));
+
         final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream oldOut = System.out;
         System.setOut(new PrintStream(outContent));
