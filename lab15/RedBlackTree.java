@@ -47,11 +47,31 @@ public class RedBlackTree<T extends Comparable<T>> {
 
         if (r.getItemCount() == 1) {
             // TODO: Replace with code to create a 2-node equivalent
-            return null;
-        } else {
-            // TODO: Replace with code to create a 3-node equivalent
-            return null;
+            RBTreeNode<T> left = null, right = null;
+            int cnt = r.getChildrenCount();
+            if (cnt == 2){
+                left = buildRedBlackTree(r.getChildAt(0));
+                right = buildRedBlackTree(r.getChildAt(1));
+            }
+            else if (cnt == 1){
+                left = buildRedBlackTree(r.getChildAt(0));
+            }
+            return new RBTreeNode<>(true, r.getItemAt(0), left, right);
         }
+         else {
+            // TODO: Replace with code to create a 3-node equivalent
+            RBTreeNode<T> left = null, mid = null, right = null;
+            int cnt = r.getChildrenCount();
+            if (cnt == 3){
+                left = buildRedBlackTree(r.getChildAt(0));
+                mid = buildRedBlackTree(r.getChildAt(1));
+                right = buildRedBlackTree(r.getChildAt(2));
+
+                RBTreeNode<T> red = new RBTreeNode<>(false, r.getItemAt(0), left, mid);
+                return new RBTreeNode<>(true, r.getItemAt(1), red, right);
+            }
+         }
+        return null;
     }
 
     /* Flips the color of NODE and its children. Assume that NODE has both left
